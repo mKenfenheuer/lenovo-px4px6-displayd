@@ -93,6 +93,10 @@ void draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool color)
 }
 void draw_progressbar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, int progress)
 {
+    draw_progressbar(x, y, width, height, (double)progress);
+}
+void draw_progressbar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, double progress)
+{
     if (progress > 100)
         progress = 100;
     if (progress < 0)
@@ -109,8 +113,8 @@ void draw_progressbar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, int p
     fill_rect(x + 2, y + 2, progress_width, height - 5, true);
 
     char text_progress[5];
-    sprintf((char *)&text_progress, "%d%%", progress);
-    draw_text_invert((char *)&text_progress, &Roboto_Regular6pt7b, x + width / 2 - 10, y + height / 2 +3);
+    sprintf((char *)&text_progress, "%.2lf%%", progress);
+    draw_text_invert_center((char *)&text_progress, &Roboto_Regular6pt7b, x + width / 2, y + height / 2 + 3);
 }
 uint8_t measure_char(char c, const GFXfont *font)
 {
@@ -121,7 +125,7 @@ uint8_t measure_char(char c, const GFXfont *font)
 
     return glyph.xAdvance;
 }
-uint8_t measure_text(char* str, const GFXfont *font)
+uint8_t measure_text(char *str, const GFXfont *font)
 {
     uint8_t xx = 0;
     size_t len = strlen(str);
@@ -219,7 +223,7 @@ void draw_text_center(char *str, const GFXfont *font, uint8_t x, uint8_t y, bool
     size_t len = strlen(str);
     for (size_t pos = 0; pos < len; pos++)
     {
-        xx += draw_char(str[pos], font, xx + x- (xlen / 2), y, true);
+        xx += draw_char(str[pos], font, xx + x - (xlen / 2), y, true);
     }
 }
 void draw_text_invert_center(char *str, const GFXfont *font, uint8_t x, uint8_t y)
@@ -253,13 +257,14 @@ void update_display()
 void dump_header()
 {
     printf("char ilogo[1030] = {");
-    for(int i = 0; i < sizeof(fbuffer); i++)
+    for (int i = 0; i < sizeof(fbuffer); i++)
     {
-        if(i != sizeof(fbuffer) -1)
+        if (i != sizeof(fbuffer) - 1)
         {
             printf("0x%02x,", fbuffer[i]);
         }
-        else {
+        else
+        {
             printf("0x%02x", fbuffer[i]);
         }
     }

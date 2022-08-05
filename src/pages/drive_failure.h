@@ -1,5 +1,6 @@
 #include "../gfx.h"
 #include "../process.h"
+#include "../strtools.h"
 #include <vector>
 #include <iostream>
 #include <iterator>

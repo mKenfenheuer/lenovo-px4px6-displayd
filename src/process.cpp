@@ -7,15 +7,18 @@
 
 using namespace std;
 
-string exec(string cmd) {
-    //printf("exec command: %s\n", cmd.c_str());
+string exec(string cmd)
+{
+    // printf("exec command: %s\n", cmd.c_str());
     array<char, 128> buffer;
     string result;
     unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
-    if (!pipe) {
+    if (!pipe)
+    {
         throw runtime_error("popen() failed!");
     }
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
+    {
         result += buffer.data();
     }
     return result;

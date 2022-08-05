@@ -14,6 +14,7 @@ void draw_line(uint8_t start_x, uint8_t start_y, uint8_t end_x, uint8_t end_y, b
 void fill_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool color);
 void draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool color);
 void draw_progressbar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, int progress);
+void draw_progressbar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, double progress);
 uint8_t draw_char(char c, const GFXfont *font, uint8_t x, uint8_t y, bool color);
 uint8_t draw_char_invert(char c, const GFXfont *font, uint8_t x, uint8_t y);
 uint8_t measure_char(char c, const GFXfont *font);
